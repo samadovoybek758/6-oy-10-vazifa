@@ -23,7 +23,7 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
     response => {
-        return response
+        return response.data
     },
     error => {
         if (error.response && error.response.status === 401) {

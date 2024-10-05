@@ -46,9 +46,9 @@ function Login() {
             }
         })
         .then(data => {
-           console.log(data);
-            if (data.data.message == "success") {
-                localStorage.setItem('token', data.data.token)
+           console.log(data.message);
+            if (data.message === "success") {
+                localStorage.setItem('token', data.token)
                 navigate('/')
             }else(
                 alert(data.message)

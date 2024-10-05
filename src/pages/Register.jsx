@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import http from '../../axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,6 +9,7 @@ function Register() {
     const passwordRef = useRef()
     const repasswordRef = useRef()
 
+    const [loading, setloading] = useState(false)
     const navigate = useNavigate()
 
     const validateEmail = (email) => {
@@ -50,6 +51,7 @@ function Register() {
   
     function reg_btn(event) {
         event.preventDefault()
+        setloading(true)
 
         const isValid = Validate()
         if (!isValid) {
@@ -80,6 +82,10 @@ function Register() {
         .catch(err =>{
             console.log(err);
         })
+        .finally(function () {
+          setloading(false)
+        }
+        )
     }
 
   return (
@@ -90,7 +96,7 @@ function Register() {
             < input ref={lnameRef} className='py-2 px-3 rounded-md border border-solid border-blue-400' type="text" placeholder='Enter lastname...' />
             < input ref={passwordRef} className='py-2 px-3 rounded-md border border-solid border-blue-400' type="password" placeholder='Enter password...' />
             < input ref={repasswordRef} className='py-2 px-3 rounded-md border border-solid border-blue-400' type="password" placeholder='Enter replay password...' />
-            <button onClick={reg_btn} className='py-2 px-3 border-none bg-slate-400 rounded-md text-white'>Register</button>
+            <button disabled= {loading} onClick={reg_btn} className='py-2 px-3 border-none bg-slate-400 rounded-md text-white'>{loading ? "LOADING" : "Register"}</button>
 
         </form>
     </div>
